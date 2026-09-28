@@ -1,0 +1,29 @@
+{
+  "name": "bawksync",
+  "version": "0.1.0",
+  "description": "End-to-end encrypted sync server for bawkterm",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/node.ts",
+    "dev": "node --watch src/node.ts",
+    "token": "node -e \"console.log(require('node:crypto').randomBytes(32).toString('base64url'))\"",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "worker:dev": "wrangler dev",
+    "worker:migrate": "wrangler d1 migrations apply bawksync --remote",
+    "worker:deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.1",
+    "hono": "4.13.9"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.0",
+    "typescript": "6.0.3",
+    "wrangler": "4.138.0"
+  }
+}

@@ -1,0 +1,7 @@
+node_modules
+data
+.wrangler
+.dev.vars
+test
+scripts
+.git

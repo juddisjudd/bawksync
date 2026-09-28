@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS spaces (
+  space TEXT PRIMARY KEY,
+  seq INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS records (
+  space TEXT NOT NULL,
+  id TEXT NOT NULL,
+  seq INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  deleted INTEGER NOT NULL DEFAULT 0,
+  blob TEXT NOT NULL,
+  PRIMARY KEY (space, id)
+);
+
+CREATE INDEX IF NOT EXISTS records_by_seq ON records (space, seq);
