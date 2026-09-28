@@ -41,6 +41,13 @@ pnpm wrangler secret put BAWKSYNC_TOKENS
 pnpm worker:deploy
 ```
 
+## This deployment
+
+- URL: `https://sync.bawkbawk.net` (Worker custom domain; `workers.dev` is off)
+- D1: `bawksync` in WNAM, id in `wrangler.jsonc`
+- Token: in `.token` (git-ignored). To rotate: `pnpm token`, then `pnpm wrangler secret put BAWKSYNC_TOKENS`, then set up sync again on one device and re-join the others with its new link.
+- Do not run `scripts/smoke.ts` with the token your devices use. It leaves test records, and bawkterm refuses to set up new sync on a non-empty space.
+
 ## Connect bawkterm
 
 1. First device: settings → sync → **Set up new sync**, enter the server URL and token.
