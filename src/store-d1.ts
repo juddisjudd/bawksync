@@ -52,4 +52,8 @@ export class D1Store implements Store {
     const row = await this.db.prepare(SQL.usage).bind(space).first<{ n: number; bytes: number }>()
     return { records: Number(row?.n ?? 0), bytes: Number(row?.bytes ?? 0) }
   }
+
+  async clear(space: string): Promise<void> {
+    await this.db.prepare(SQL.clear).bind(space).all()
+  }
 }

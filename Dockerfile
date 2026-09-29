@@ -15,6 +15,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY package.json ./
 COPY src ./src
 COPY --chmod=755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+# lets "docker exec <container> bawksync tokens" reach the same commands as "docker run ... tokens"
+RUN ln -s /usr/local/bin/docker-entrypoint.sh /usr/local/bin/bawksync
 
 ENV NODE_ENV=production \
     PORT=8787 \

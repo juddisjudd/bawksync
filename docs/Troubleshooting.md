@@ -23,8 +23,14 @@ Names like `nas.local` or `sync.mydomain.com` need HTTPS. Use the server's IP ad
 
 ## "The sync server rejected the token"
 
-- Copy the token again from `/data/tokens` or the first-start log. Watch for missing characters and extra spaces.
+- Show the token again with `docker exec bawksync bawksync tokens` and copy it. Watch for missing characters and extra spaces.
 - If you set `BAWKSYNC_TOKENS`, it replaces `/data/tokens` completely.
+
+## I lost my token
+
+- **A device still syncs:** its **Copy sync link** contains the token. Join your other devices with that link. You do not need the token itself.
+- **Docker, Unraid, TrueNAS, HexOS:** run `bawksync tokens` in the container: `docker exec bawksync bawksync tokens`, or open the container's console or shell and type `bawksync tokens`. Without Docker, run `bun run tokens` in the bawksync folder.
+- **Cloudflare Workers:** Cloudflare never shows a secret again. Make a new token (`bun run token`), store it with `bunx wrangler secret put BAWKSYNC_TOKENS`, then use **Set up new sync** in bawkterm with the new token.
 
 ## The container stops right after starting
 
@@ -36,10 +42,16 @@ Names like `nas.local` or `sync.mydomain.com` need HTTPS. Use the server's IP ad
 
 ## "This server already holds a synced vault for that token"
 
-That token's space already has data, for example from an earlier setup. Either:
+That token's space already has data, for example from an earlier setup. bawkterm offers two ways on:
 
-- join from a device that already syncs (**Copy sync link**, then **Join with sync link**); or
-- use a new token.
+- **A device still syncs:** cancel, then join from that device (**Copy sync link**, then **Join with sync link**).
+- **No device syncs anymore:** choose **Erase and start fresh**. The old server copy is deleted and this device's vault is uploaded with a new key. The erased copy cannot be recovered.
+
+Erasing needs bawksync 0.2 or newer. An older server answers *"This bawksync server is too old to erase its copy"*; update it first.
+
+## "Sync was reset from another device"
+
+Another device erased the server copy and started over with a new key. This device stopped syncing before uploading anything. Choose **Stop syncing**, then **Join with sync link** with the link from the device that started over. Your hosts and keys on this device are merged in.
 
 ## "Sync server error 413"
 

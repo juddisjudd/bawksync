@@ -18,10 +18,17 @@ const split = (text: string): string[] =>
 
 // tokens come from BAWKSYNC_TOKENS, then BAWKSYNC_TOKENS_FILE (Docker secrets), then a tokens file next to the
 // database that is created with one fresh token on first start, so a NAS install needs no manual setup
-function loadTokens(): string[] {
+const tokensFile = process.env.BAWKSYNC_TOKENS_FILE ?? join(dirname(dbPath), 'tokens')
+
+function savedTokens(): string[] | null {
   if (process.env.BAWKSYNC_TOKENS) return split(process.env.BAWKSYNC_TOKENS)
-  const file = process.env.BAWKSYNC_TOKENS_FILE ?? join(dirname(dbPath), 'tokens')
-  if (existsSync(file)) return split(readFileSync(file, 'utf8'))
+  return existsSync(tokensFile) ? split(readFileSync(tokensFile, 'utf8')) : null
+}
+
+function loadTokens(): string[] {
+  const saved = savedTokens()
+  if (saved) return saved
+  const file = tokensFile
   if (process.env.BAWKSYNC_TOKENS_FILE) {
     console.error(`[bawksync] BAWKSYNC_TOKENS_FILE points to ${file}, which does not exist`)
     process.exit(1)
@@ -31,8 +38,20 @@ function loadTokens(): string[] {
   writeFileSync(file, token + '\n', { mode: 0o600 })
   console.log(`[bawksync] created a sync token and saved it in ${file}:`)
   console.log(`[bawksync]   ${token}`)
-  console.log('[bawksync] enter it in bawkterm under settings → sync → Set up new sync. It is only shown this once.')
+  console.log('[bawksync] enter it in bawkterm under settings → sync → Set up new sync. Show it again with "bawksync tokens".')
   return [token]
+}
+
+// "bawksync tokens" prints the tokens again for anyone who missed the first-start log
+if (process.argv[2] === 'tokens') {
+  const saved = savedTokens()
+  if (!saved?.length) {
+    console.error(`[bawksync] no tokens yet. Start the server once and it creates one in ${tokensFile}.`)
+    process.exit(1)
+  }
+  console.error(`[bawksync] tokens from ${process.env.BAWKSYNC_TOKENS ? 'BAWKSYNC_TOKENS' : tokensFile}:`)
+  console.log(saved.join('\n'))
+  process.exit(0)
 }
 
 const tokens = loadTokens()

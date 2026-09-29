@@ -52,9 +52,9 @@ Unraid saves this as a user template, so you can edit it later from the containe
 ## Get your token
 
 1. On the **Docker** tab, click the bawksync icon and choose **Logs**.
-2. Copy the token printed after `created a sync token`. It is shown only on the first start.
+2. Copy the token printed after `created a sync token`.
 
-To read it again later, open the container's **Console** and run `cat /data/tokens`, or look in `/mnt/user/appdata/bawksync/tokens`.
+The log line appears only on the first start. To show the token again later, open the container's **Console** and run `bawksync tokens`. It is also saved in `/mnt/user/appdata/bawksync/tokens`.
 
 ## Connect
 

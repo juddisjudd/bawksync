@@ -1,6 +1,6 @@
 {
   "name": "bawksync",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "End-to-end encrypted sync server for bawkterm",
   "private": true,
   "type": "module",
@@ -11,6 +11,7 @@
     "start": "node src/node.ts",
     "dev": "node --watch src/node.ts",
     "token": "bun -e \"console.log(require('node:crypto').randomBytes(32).toString('base64url'))\"",
+    "tokens": "node src/node.ts tokens",
     "test": "node --test test/*.test.ts",
     "typecheck": "tsc --noEmit",
     "worker:dev": "wrangler dev",

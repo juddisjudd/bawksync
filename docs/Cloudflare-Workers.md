@@ -49,7 +49,7 @@ Run bawksync on Cloudflare's network instead of your own hardware. The free Work
    bunx wrangler secret put BAWKSYNC_TOKENS
    ```
 
-   Paste the token when asked. Keep a copy somewhere safe; you need it in bawkterm.
+   Paste the token when asked. Keep a copy in a password manager: you need it in bawkterm, and Cloudflare never shows a secret again. If you lose it, see [I lost my token](Troubleshooting.md#i-lost-my-token).
 
 7. Deploy:
 

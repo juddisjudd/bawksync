@@ -39,7 +39,7 @@ This works on any Linux machine with Docker: a VPS, a Raspberry Pi, a home serve
    docker compose logs bawksync
    ```
 
-   Look for the line after `created a sync token`. The token is also saved in `./data/tokens`. You can read it again later with `cat ./data/tokens`.
+   Look for the line after `created a sync token`. The token is also saved in `./data/tokens`. Show it again any time with `docker compose exec bawksync bawksync tokens`.
 
 5. Check that it answers:
 
@@ -60,7 +60,7 @@ docker run -d --name bawksync --restart unless-stopped \
   -v bawksync-data:/data \
   ghcr.io/juddisjudd/bawksync:latest
 
-docker logs bawksync        # shows the token once
+docker exec bawksync bawksync tokens   # shows the token
 ```
 
 ## Choosing your own token

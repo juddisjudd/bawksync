@@ -8,7 +8,7 @@ Quick start with Docker:
 
 ```sh
 docker run -d --name bawksync --restart unless-stopped -p 8787:8787 -v bawksync-data:/data ghcr.io/juddisjudd/bawksync:latest
-docker logs bawksync   # shows your token once
+docker exec bawksync bawksync tokens   # shows your token
 ```
 
 ## What the server can and cannot do
@@ -30,6 +30,7 @@ It never sees hostnames, usernames, passwords, private keys, labels or the encry
 - Each token is its own separate space. The server stores only the token's SHA-256 hash.
 - Anyone with a token can overwrite or delete records in its space, but cannot read them without the key from the bawkterm sync link.
 - There is no rate limit on guesses. Instead, tokens must be at least 32 random characters. The server makes one with 256 bits of randomness on first start, or you can make one with `docker run --rm ghcr.io/juddisjudd/bawksync token` or `bun run token`.
+- `bawksync tokens` shows the tokens the server accepts: `docker exec bawksync bawksync tokens`, or `bun run tokens` without Docker.
 
 ### Limits
 
@@ -66,10 +67,10 @@ The server speaks plain HTTP. bawkterm only accepts `http://` for private IP add
 ## Connect bawkterm
 
 1. First device: settings → sync → **Set up new sync**, then enter the server URL and token.
-2. On that device: **Copy sync link** (asks for the master password).
+2. bawkterm then asks you to save the sync link. Put it in a password manager.
 3. Other devices: settings → sync → **Join with sync link**.
 
-The sync link holds the URL, the token and the encryption key. Treat it like a password.
+The sync link holds the URL, the token and the encryption key. Treat it like a password. It is also your only way back in: if you lose every device and the link, the server copy cannot be read. In that case, **Set up new sync** with the same token offers **Erase and start fresh**.
 
 To rotate a token:
 
@@ -86,6 +87,7 @@ bun install
 bun run dev                          # server with reload on change
 bun run test                         # API tests against in-memory SQLite
 bun run typecheck
+bun run tokens                       # show the tokens in ./data/tokens
 node scripts/smoke.ts <url> <token>  # HTTP smoke test against a running server
 docker build -t bawksync .           # the same image CI publishes
 ```
@@ -94,7 +96,7 @@ docker build -t bawksync .           # the same image CI publishes
 
 Pushing to `main` publishes `ghcr.io/juddisjudd/bawksync:latest`. Tags `vX.Y.Z` also publish `X.Y.Z` and `X.Y`. Changes in `docs/` are copied to the wiki.
 
-Do not run the smoke test with a token your devices use. It leaves test records, and bawkterm refuses to set up new sync on a space that is not empty.
+Do not run the smoke test with a token your devices use. It leaves test records, and bawkterm then only offers to set up new sync by erasing them.
 
 ## API
 
@@ -106,6 +108,7 @@ All `/v1/*` routes except `/v1/health` need `Authorization: Bearer <token>`.
 - `POST /v1/records` `{ records: [{ id, updatedAt, deleted, blob }] }` → `{ seq, rejected: [id] }`
   - A record whose `updatedAt` is not newer than the stored one is rejected.
   - Returns `413` when the token's storage limit would be exceeded.
+- `DELETE /v1/records` → `{ ok }` erases every record for the token. `seq` keeps counting up, so devices that still sync see what comes next.
 
 ## Security
 

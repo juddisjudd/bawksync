@@ -49,6 +49,10 @@ export class SqliteStore implements Store {
     return { records: Number(row.n), bytes: Number(row.bytes) }
   }
 
+  async clear(space: string): Promise<void> {
+    this.db.prepare(SQL.clear).run(space)
+  }
+
   close(): void {
     this.db.close()
   }

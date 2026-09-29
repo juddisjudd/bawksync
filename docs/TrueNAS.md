@@ -63,9 +63,9 @@ Pick one of two ways.
 
 1. Go to **Apps → Installed** and select **bawksync**.
 2. Under **Workloads**, open the logs (the page icon next to the container).
-3. Copy the token printed after `created a sync token`. It is shown only on the first start.
+3. Copy the token printed after `created a sync token`.
 
-It's also saved in the dataset as `tokens`. Read it with the container's shell (`cat /data/tokens`) or from **System → Shell**: `cat /mnt/<pool>/apps/bawksync/tokens`.
+The log line appears only on the first start. To show the token again later, open the container's shell and run `bawksync tokens`. It is also saved in the dataset: `cat /mnt/<pool>/apps/bawksync/tokens` from **System → Shell**.
 
 ## 4. Connect
 

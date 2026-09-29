@@ -3,7 +3,7 @@ import { bodyLimit } from 'hono/body-limit'
 import type { IncomingRecord, Store } from './store.ts'
 import { FAVICON, PAGE_HEADERS, landingPage } from './page.ts'
 
-export const VERSION = '0.1.0'
+export const VERSION = '0.2.0'
 // pullPage keeps one response under ~25 MB even when every blob is at the size limit
 export const LIMITS = {
   body: 8 * 1024 * 1024,
@@ -90,6 +90,12 @@ export function createApp({ store, tokens }: AppOptions): Hono<Env> {
       return c.json({ error: 'bad query' }, 400)
     }
     return c.json(await store.pull(c.get('space'), since, limit))
+  })
+
+  // anyone with the token can already delete records one by one, so erasing them all adds no new power
+  app.delete('/v1/records', async (c) => {
+    await store.clear(c.get('space'))
+    return c.json({ ok: true })
   })
 
   app.post(

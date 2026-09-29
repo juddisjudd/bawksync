@@ -25,6 +25,7 @@ export interface Store {
   push(space: string, records: IncomingRecord[]): Promise<PushResult>
   count(space: string): Promise<number>
   usage(space: string): Promise<Usage>
+  clear(space: string): Promise<void>
 }
 
 export interface Usage {
@@ -61,7 +62,9 @@ export const SQL = {
   currentSeq: 'SELECT seq FROM spaces WHERE space = ?',
   pull: 'SELECT id, seq, updated_at, deleted, blob FROM records WHERE space = ? AND seq > ? ORDER BY seq LIMIT ?',
   count: 'SELECT COUNT(*) AS n FROM records WHERE space = ? AND deleted = 0',
-  usage: 'SELECT COUNT(*) AS n, COALESCE(SUM(LENGTH(blob)), 0) AS bytes FROM records WHERE space = ?'
+  usage: 'SELECT COUNT(*) AS n, COALESCE(SUM(LENGTH(blob)), 0) AS bytes FROM records WHERE space = ?',
+  // the space row stays, so seq keeps rising and devices that still sync never miss new records
+  clear: 'DELETE FROM records WHERE space = ?'
 }
 
 export interface Row {

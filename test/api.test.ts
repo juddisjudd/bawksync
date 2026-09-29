@@ -51,6 +51,26 @@ test('the root page is static HTML and escapes the address', async () => {
   assert.equal((await app.request('/favicon.svg')).headers.get('content-type'), 'image/svg+xml')
 })
 
+test('erasing a space removes only its records and seq keeps rising', async () => {
+  const { call } = setup()
+  await call('POST', '/v1/records', TOKEN_A, { records: [rec('a', 5), rec('b', 5)] })
+  await call('POST', '/v1/records', TOKEN_B, { records: [rec('x', 5)] })
+  const before = (await call('GET', '/v1/records', TOKEN_A)).body.seq
+  assert.equal((await call('DELETE', '/v1/records')).status, 401)
+  assert.equal((await call('DELETE', '/v1/records', TOKEN_A)).status, 200)
+  assert.equal((await call('GET', '/v1/info', TOKEN_A)).body.records, 0)
+  assert.equal((await call('GET', '/v1/info', TOKEN_B)).body.records, 1)
+  // an older copy of an erased record is accepted again, since nothing newer is stored
+  const pushed = await call('POST', '/v1/records', TOKEN_A, { records: [rec('a', 1)] })
+  assert.deepEqual(pushed.body.rejected, [])
+  const after = await call('GET', `/v1/records?since=${before}`, TOKEN_A)
+  assert.deepEqual(
+    after.body.records.map((r: { id: string }) => r.id),
+    ['a']
+  )
+  assert.ok(after.body.seq > before)
+})
+
 test('push then pull returns records in seq order', async () => {
   const { call } = setup()
   const push = await call('POST', '/v1/records', TOKEN_A, { records: [rec('h1', 10), rec('h2', 20)] })

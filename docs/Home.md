@@ -25,7 +25,7 @@ Stuck? See [Troubleshooting](Troubleshooting.md).
 ## What you need to know first
 
 - **One container, one port, one folder.** The server listens on port `8787`. It keeps everything in one folder, mounted at `/data`: a SQLite database and a `tokens` file.
-- **A token is your password for the server.** On first start, bawksync creates one and prints it once in the container log. Anyone with the token can store and delete data on your server, but cannot read it.
+- **A token is your password for the server.** On first start, bawksync creates one and prints it in the container log. `bawksync tokens` inside the container shows it again. Anyone with the token can store and delete data on your server, but cannot read it.
 - **The sync link is the real secret.** bawkterm's sync link contains the server address, the token *and* your encryption key. Treat it like a password.
 - **The server speaks plain HTTP.** bawkterm only accepts `http://` for addresses on your own network (like `192.168.1.20`) or Tailscale (`100.x.y.z`). Anywhere else needs HTTPS. [Remote access](Remote-access.md) shows the easy ways to get it.
 - **Small footprint.** It idles at well under 100 MB of memory and needs almost no CPU. It runs on `amd64` and `arm64` (for example Raspberry Pi 4 and 5).
