@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>bawksync</Name>
+  <Repository>ghcr.io/juddisjudd/bawksync:latest</Repository>
+  <Registry>https://github.com/juddisjudd/bawksync/pkgs/container/bawksync</Registry>
+  <Network>bridge</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/juddisjudd/bawksync/issues</Support>
+  <Project>https://github.com/juddisjudd/bawksync</Project>
+  <ReadMe>https://github.com/juddisjudd/bawksync/blob/main/docs/Unraid.md</ReadMe>
+  <Overview>End-to-end encrypted sync server for bawkterm, an SSH, SFTP and Remote Desktop client. It stores only data your devices encrypted, so it cannot read your hosts, passwords or keys. On first start it creates a token and prints it once in the log (also saved in the data folder as "tokens").</Overview>
+  <Category>Network:Other Tools:Utilities</Category>
+  <TemplateURL>https://raw.githubusercontent.com/juddisjudd/bawksync/main/unraid/bawksync.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/juddisjudd/bawksync/main/icon.png</Icon>
+  <Config Name="Sync port" Target="8787" Default="8787" Mode="tcp" Description="Port bawkterm connects to." Type="Port" Display="always" Required="true" Mask="false">8787</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/bawksync" Mode="rw" Description="Encrypted database and the tokens file." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/bawksync</Config>
+  <Config Name="Token" Target="BAWKSYNC_TOKENS" Default="" Mode="" Description="Optional. Leave empty to have a token created on first start (shown once in the log, saved in the data folder). Or paste your own: 32+ random characters." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="User that owns the data folder (99 = nobody)." Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Group that owns the data folder (100 = users)." Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+</Container>

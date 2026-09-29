@@ -3,12 +3,22 @@ import { bodyLimit } from 'hono/body-limit'
 import type { IncomingRecord, Store } from './store.ts'
 
 export const VERSION = '0.1.0'
+// pullPage keeps one response under ~25 MB even when every blob is at the size limit
 export const LIMITS = {
   body: 8 * 1024 * 1024,
   recordsPerPush: 500,
-  pullPage: 500,
+  pullPage: 100,
   blob: 256 * 1024,
-  id: 128
+  id: 128,
+  recordsPerSpace: 50_000,
+  bytesPerSpace: 128 * 1024 * 1024
+}
+
+// tokens are bearer secrets with no rate limit in front of them, so they must be long and random
+export const MIN_TOKEN_LENGTH = 32
+
+export function weakToken(token: string): boolean {
+  return token.length < MIN_TOKEN_LENGTH || new Set(token).size < 12
 }
 
 export interface AppOptions {
@@ -81,6 +91,11 @@ export function createApp({ store, tokens }: AppOptions): Hono<Env> {
       const records: unknown = body?.records
       if (!Array.isArray(records) || records.length > LIMITS.recordsPerPush || !records.every(validRecord)) {
         return c.json({ error: 'bad records' }, 400)
+      }
+      const usage = await store.usage(c.get('space'))
+      const incoming = records.reduce((n, r) => n + r.blob.length, 0)
+      if (usage.records + records.length > LIMITS.recordsPerSpace || usage.bytes + incoming > LIMITS.bytesPerSpace) {
+        return c.json({ error: 'storage limit reached' }, 413)
       }
       return c.json(await store.push(c.get('space'), records))
     }

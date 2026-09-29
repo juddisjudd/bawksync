@@ -24,6 +24,12 @@ export interface Store {
   pull(space: string, since: number, limit: number): Promise<PullResult>
   push(space: string, records: IncomingRecord[]): Promise<PushResult>
   count(space: string): Promise<number>
+  usage(space: string): Promise<Usage>
+}
+
+export interface Usage {
+  records: number
+  bytes: number
 }
 
 export const SCHEMA = `
@@ -54,7 +60,8 @@ export const SQL = {
     WHERE excluded.updated_at > records.updated_at`,
   currentSeq: 'SELECT seq FROM spaces WHERE space = ?',
   pull: 'SELECT id, seq, updated_at, deleted, blob FROM records WHERE space = ? AND seq > ? ORDER BY seq LIMIT ?',
-  count: 'SELECT COUNT(*) AS n FROM records WHERE space = ? AND deleted = 0'
+  count: 'SELECT COUNT(*) AS n FROM records WHERE space = ? AND deleted = 0',
+  usage: 'SELECT COUNT(*) AS n, COALESCE(SUM(LENGTH(blob)), 0) AS bytes FROM records WHERE space = ?'
 }
 
 export interface Row {

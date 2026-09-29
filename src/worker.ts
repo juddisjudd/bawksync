@@ -1,4 +1,4 @@
-import { createApp } from './app.ts'
+import { createApp, weakToken } from './app.ts'
 import { D1Store, type D1Database } from './store-d1.ts'
 
 interface Env {
@@ -14,7 +14,7 @@ export default {
       const tokens = (env.BAWKSYNC_TOKENS ?? '')
         .split(',')
         .map((t) => t.trim())
-        .filter((t) => t.length >= 24)
+        .filter((t) => !weakToken(t))
       cached = { tokens: env.BAWKSYNC_TOKENS, app: createApp({ store: new D1Store(env.DB), tokens }) }
     }
     return cached.app.fetch(request)

@@ -1,4 +1,4 @@
-import { SQL, toPullResult, type IncomingRecord, type PullResult, type PushResult, type Row, type Store } from './store.ts'
+import { SQL, toPullResult, type IncomingRecord, type PullResult, type PushResult, type Row, type Store, type Usage } from './store.ts'
 
 interface D1Result<T = unknown> {
   results: T[]
@@ -46,5 +46,10 @@ export class D1Store implements Store {
   async count(space: string): Promise<number> {
     const row = await this.db.prepare(SQL.count).bind(space).first<{ n: number }>()
     return Number(row?.n ?? 0)
+  }
+
+  async usage(space: string): Promise<Usage> {
+    const row = await this.db.prepare(SQL.usage).bind(space).first<{ n: number; bytes: number }>()
+    return { records: Number(row?.n ?? 0), bytes: Number(row?.bytes ?? 0) }
   }
 }

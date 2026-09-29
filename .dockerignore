@@ -2,6 +2,10 @@ node_modules
 data
 .wrangler
 .dev.vars
+.token
 test
 scripts
+docs
+unraid
+.github
 .git

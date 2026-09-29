@@ -1,0 +1,43 @@
+name: wiki
+
+# docs/ is the source of truth; this mirrors it into the GitHub wiki so the guides are readable in both places
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Publish docs/ to the wiki
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git"
+          if ! git ls-remote "$remote" >/dev/null 2>&1; then
+            echo "::notice::The wiki does not exist yet. Enable it in the repository settings, create any first page, then run this workflow again."
+            exit 0
+          fi
+          git clone --depth 1 "$remote" wiki
+          find wiki -maxdepth 1 -name '*.md' -delete
+          cp docs/*.md wiki/
+          # wiki links have no .md suffix
+          sed -i -E 's/\]\(([A-Za-z0-9_-]+)\.md(#[^)]*)?\)/](\1\2)/g' wiki/*.md
+          cd wiki
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Wiki is already up to date."
+            exit 0
+          fi
+          git commit -m "Sync docs from ${GITHUB_SHA::7}"
+          git push

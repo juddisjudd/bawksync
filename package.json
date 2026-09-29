@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node src/node.ts",
     "dev": "node --watch src/node.ts",
-    "token": "node -e \"console.log(require('node:crypto').randomBytes(32).toString('base64url'))\"",
+    "token": "bun -e \"console.log(require('node:crypto').randomBytes(32).toString('base64url'))\"",
     "test": "node --test test/*.test.ts",
     "typecheck": "tsc --noEmit",
     "worker:dev": "wrangler dev",
@@ -25,5 +25,13 @@
     "@types/node": "24.19.0",
     "typescript": "6.0.3",
     "wrangler": "4.138.0"
-  }
+  },
+  "overrides": {
+    "undici": ">=7.29.1 <8"
+  },
+  "trustedDependencies": [
+    "esbuild",
+    "workerd"
+  ],
+  "packageManager": "bun@1.4.0"
 }

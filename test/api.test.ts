@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { createApp } from '../src/app.ts'
+import { LIMITS, createApp, weakToken } from '../src/app.ts'
 import { SqliteStore } from '../src/store-sqlite.ts'
 
 const TOKEN_A = 'a'.repeat(32)
@@ -106,4 +106,32 @@ test('rejects malformed input', async () => {
   assert.equal((await call('POST', '/v1/records', TOKEN_A, { records: [rec('x', -1)] })).status, 400)
   assert.equal((await call('POST', '/v1/records', TOKEN_A, { records: [rec('x', 1, 'z'.repeat(300 * 1024))] })).status, 400)
   assert.equal((await call('GET', '/v1/records?since=-4', TOKEN_A)).status, 400)
+})
+
+test('pull pages are capped even when a client asks for more', async () => {
+  const { call } = setup()
+  const records = Array.from({ length: LIMITS.pullPage + 20 }, (_, i) => rec(`r${i}`, i + 1))
+  assert.equal((await call('POST', '/v1/records', TOKEN_A, { records })).status, 200)
+  const pull = await call('GET', '/v1/records?since=0&limit=500', TOKEN_A)
+  assert.equal(pull.body.records.length, LIMITS.pullPage)
+  assert.equal(pull.body.more, true)
+})
+
+test('each token has a storage limit', async () => {
+  const saved = LIMITS.recordsPerSpace
+  LIMITS.recordsPerSpace = 3
+  try {
+    const { call } = setup()
+    assert.equal((await call('POST', '/v1/records', TOKEN_A, { records: [rec('a', 1), rec('b', 1), rec('c', 1)] })).status, 200)
+    assert.equal((await call('POST', '/v1/records', TOKEN_A, { records: [rec('d', 1)] })).status, 413)
+    assert.equal((await call('POST', '/v1/records', TOKEN_B, { records: [rec('d', 1)] })).status, 200)
+  } finally {
+    LIMITS.recordsPerSpace = saved
+  }
+})
+
+test('short or repetitive tokens are refused', () => {
+  assert.equal(weakToken('a'.repeat(40)), true)
+  assert.equal(weakToken('Ab1-'.repeat(5)), true)
+  assert.equal(weakToken('kY3v9QpL2mZx7RtB8nWc4HdJ6sFa1GeU0oIl5Tq-_'), false)
 })

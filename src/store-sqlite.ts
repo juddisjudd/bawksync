@@ -1,7 +1,7 @@
 import { mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
-import { SCHEMA, SQL, toPullResult, type IncomingRecord, type PullResult, type PushResult, type Row, type Store } from './store.ts'
+import { SCHEMA, SQL, toPullResult, type IncomingRecord, type PullResult, type PushResult, type Row, type Store, type Usage } from './store.ts'
 
 export class SqliteStore implements Store {
   private db: DatabaseSync
@@ -42,6 +42,11 @@ export class SqliteStore implements Store {
   async count(space: string): Promise<number> {
     const row = this.db.prepare(SQL.count).get(space) as { n: number }
     return Number(row.n)
+  }
+
+  async usage(space: string): Promise<Usage> {
+    const row = this.db.prepare(SQL.usage).get(space) as { n: number; bytes: number }
+    return { records: Number(row.n), bytes: Number(row.bytes) }
   }
 
   close(): void {

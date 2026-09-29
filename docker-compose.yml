@@ -1,0 +1,16 @@
+# Minimal self-hosted bawksync. See docs/self-hosting for NAS-specific guides.
+services:
+  bawksync:
+    image: ghcr.io/juddisjudd/bawksync:latest
+    container_name: bawksync
+    restart: unless-stopped
+    ports:
+      - "8787:8787"
+    environment:
+      # user and group that own ./data on the host (Unraid: 99/100, TrueNAS: 568/568)
+      PUID: "1000"
+      PGID: "1000"
+      # leave unset to have a token created on first start (printed once in the log, saved in /data/tokens)
+      # BAWKSYNC_TOKENS: "<token from: docker run --rm ghcr.io/juddisjudd/bawksync token>"
+    volumes:
+      - ./data:/data
