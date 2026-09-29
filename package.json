@@ -33,5 +33,6 @@
     "esbuild",
     "workerd"
   ],
-  "packageManager": "bun@1.4.0"
+  "packageManager": "bun@1.4.0",
+  "license": "AGPL-3.0-only"
 }

@@ -113,4 +113,4 @@ See [SECURITY.md](SECURITY.md) to report a problem.
 
 ## License
 
-No license has been chosen yet. Until a `LICENSE` file is added, all rights are reserved.
+[GNU Affero General Public License v3.0](LICENSE). If you run a changed version of bawksync as a service for others, you must offer them its source under the same license.

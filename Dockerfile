@@ -6,7 +6,8 @@ RUN bun install --production --frozen-lockfile --ignore-scripts
 FROM node:24-alpine
 LABEL org.opencontainers.image.title="bawksync" \
       org.opencontainers.image.description="End-to-end encrypted sync server for bawkterm" \
-      org.opencontainers.image.source="https://github.com/juddisjudd/bawksync"
+      org.opencontainers.image.source="https://github.com/juddisjudd/bawksync" \
+      org.opencontainers.image.licenses="AGPL-3.0-only"
 
 WORKDIR /app
 RUN apk add --no-cache su-exec
