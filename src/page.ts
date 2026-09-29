@@ -1,0 +1,116 @@
+const CHICKEN = 'M271.43 39.64C280.54 34.65 288.06 28.38 298.55 26.13C319.19 21.72 341.8 30.42 351.8 49.63C355.2 56.16 355.8 62.73 357.46 69.73C361.28 71.25 366.84 70.48 371.01 71.17C379.73 72.64 388.23 76.16 395.48 81.21C421.09 99.08 429.44 138.64 407.76 162.5C401.28 169.63 393.3 175.3 384.84 179.77C381.17 181.71 376.51 182.84 373.27 185.4C379.32 202.59 383.33 220.41 389.18 237.67C396.43 259.06 407.89 279.42 421.28 297.6C431.88 311.99 444.24 325.25 458.11 336.56C462.92 340.48 471.38 344.36 467.76 352.04C465.11 357.66 458.2 356.33 453.32 355.34C445.42 353.76 437.3 353.08 429.35 351.82C425.42 351.2 421.29 350 417.32 350.09C416.22 355.65 420.39 376.49 421.09 383.72C421.5 387.87 423.16 392.33 420.69 396.14C416.78 402.16 409.37 398.69 404.03 397.2C394.81 394.64 385.51 392.29 376.27 389.8C372.73 388.84 367.59 386.21 363.98 386.92C361.94 390.18 361.72 395.22 360.78 398.95C358.21 409.11 355.45 419.29 353.16 429.52C351.9 435.15 351.52 444.56 345.03 446.73C339.73 448.5 333.74 442.91 329.57 440.3C321.8 435.43 313.91 430.73 306.16 425.82C302.55 423.53 298.44 419.97 294.34 418.79C292.12 422.65 291.15 427.54 289.82 431.77C286.81 441.37 283.45 450.92 280.25 460.46C278.61 465.35 277.82 472.88 272.08 474.78C266.7 476.57 261.58 471.17 257.79 468.12C250.79 462.48 243.51 457.14 236.35 451.71C232.53 448.81 228.83 445.22 224.67 442.85C221.46 445.08 219.6 451.61 217.8 455.1C212.93 464.55 207.97 473.96 203.17 483.45C201.31 487.12 199.63 492.71 195.84 494.86C182.91 502.19 180.76 475.91 178.76 468.65C172.36 445.4 167.52 421.66 162.2 398.14C160.79 391.91 159.47 385.63 158.2 379.37C157.54 376.13 157.5 371.85 155.47 369.17C150.04 380.51 141.27 393.55 128.74 397.79C106.28 405.41 88.84 380.71 86.14 361.19C81.12 324.89 103.93 285.21 123.94 256.47C122.12 253.56 111.37 249.5 107.84 247.77C92.84 240.41 78.06 232.61 63.1 225.17C58.31 222.79 45.99 218.44 44.08 213.38C40.52 203.95 52.12 201.65 58.32 199.32C77.37 192.15 96.76 185.71 115.9 178.8C121.83 176.66 127.76 174.47 133.65 172.27C135.93 171.42 139.73 170.96 141.59 169.39C143.73 167.57 144.26 162.03 145.2 159.44C147.39 153.38 150.18 147.47 153.27 141.81C158.2 132.76 164.77 124.41 172.25 117.3C175.69 114.04 180.56 111.49 183.53 107.89C183.57 103.99 180.04 94.29 179.25 89.48C177.05 76.13 177.96 61.73 183.14 49.2C192.62 26.28 223.98 9.45 248.05 18.19C258.81 22.1 265.45 30.33 271.43 39.64ZM432.75 335.85C432.37 334.02 429.75 332.18 428.37 330.73C424.5 326.64 420.73 322.44 417.15 318.11C405.58 304.13 395.43 288.92 387.19 272.79C380.32 259.36 374.55 245.32 370.14 230.89C360.84 200.47 354.91 173.05 335.77 146.54C327.18 134.65 315.94 124.06 302.94 117.18C257.68 93.25 193.76 103.41 167.23 149.71C147.79 183.64 150.33 225.99 154.81 263.48C160.24 308.96 169.26 353.69 178.84 398.38C183.58 420.49 188.1 442.91 194.28 464.67C196.66 462.93 197.98 458.48 199.35 455.81C203.17 448.41 207.01 441.01 210.82 433.62C212.53 430.28 213.98 425.38 217.4 423.39C223.32 419.93 228.29 425.35 232.72 428.68C240.02 434.15 247.13 439.85 254.43 445.32C258.01 447.99 261.43 451.33 265.35 453.49C268.06 450.14 268.83 443.85 270.19 439.75C273.07 431.06 276.05 422.42 278.85 413.7C280.28 409.24 281.18 401.57 285.81 399.18C291.8 396.09 297.65 401.73 302.49 404.71C310.32 409.52 318.1 414.4 325.95 419.17C329.37 421.25 333.47 425.03 337.36 425.89C339.73 422.45 340.21 415.59 341.1 411.45C343.03 402.43 345.67 393.54 347.79 384.56C348.96 379.61 349.2 371.7 354.52 369.24C358.73 367.29 363.63 369.86 367.74 370.88C375.73 372.85 383.73 374.95 391.63 377.24C395.54 378.37 400.15 380.4 404.22 380.39C404.76 377.09 403.61 373.37 403.2 370.07C402.24 362.28 401.43 354.47 400.27 346.71C399.57 341.98 398.88 335.31 404.36 333.1C412.19 329.94 424.51 337.04 432.75 335.85ZM235 161.5C240.53 161.16 245.89 163 250.53 165.82C277.11 181.96 270.48 235.58 236.36 235.98C195.72 236.46 193.91 163.96 235 161.5ZM137.7 188.14C121.42 193.93 105.14 199.72 88.86 205.5C104.4 207.06 119.93 208.62 135.47 210.18C136.21 202.83 136.96 195.49 137.7 188.14ZM347.28 215.25C357.93 212.77 362.57 232.94 351.91 235.8C341.11 238.71 336.23 217.83 347.28 215.25ZM135.38 226.54C126.55 224.36 116.38 224.59 107.31 223.84C103.55 223.53 98.93 222.05 95.32 223.27C108.98 230.1 122.64 236.94 136.3 243.77C135.99 238.03 135.69 232.28 135.38 226.54ZM356.17 242.4C363.8 241.38 365.7 250.92 367.79 256.15C372.2 267.17 377.3 277.74 383.18 288.06C386.33 293.6 390.86 298.47 393.79 304.08C395.74 307.83 394.67 312.72 390.86 314.87C383.51 319.03 379.06 310.97 375.58 305.91C365.97 291.94 358.34 276.34 352.2 260.59C349.79 254.4 345.92 243.77 356.17 242.4Z'
+
+export const FAVICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><style>path{fill:#1c1917}@media (prefers-color-scheme:dark){path{fill:#f5f5f4}}</style><path d="${CHICKEN}"/></svg>`
+
+// the page is static apart from the address, so it needs no scripts, fonts or outside requests
+export const PAGE_HEADERS = {
+  'content-security-policy':
+    "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+  'x-content-type-options': 'nosniff',
+  'referrer-policy': 'no-referrer'
+}
+
+const escape = (text: string): string => text.replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`)
+
+export function landingPage(address: string, version: string): string {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>bawksync</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: oklch(0.99 0.002 25);
+    --panel: oklch(0.972 0.003 25);
+    --border: oklch(0.9 0.004 25);
+    --text: oklch(0.36 0.006 25);
+    --weak: oklch(0.5 0.006 25);
+    --strong: oklch(0.21 0.006 25);
+    --ok: oklch(0.5 0.13 150);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: oklch(0.175 0.006 25);
+      --panel: oklch(0.205 0.006 25);
+      --border: oklch(0.28 0.006 25);
+      --text: oklch(0.8 0.008 25);
+      --weak: oklch(0.68 0.008 25);
+      --strong: oklch(0.955 0.005 25);
+      --ok: oklch(0.8 0.15 150);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.7 ui-monospace, 'IBM Plex Mono', 'Cascadia Mono', Consolas, monospace;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 72px 16px 56px; }
+  header { display: flex; align-items: center; gap: 14px; }
+  header svg { width: 44px; height: 44px; flex: none; color: var(--strong); }
+  h1 { margin: 0; color: var(--strong); font-size: 22px; font-weight: 700; }
+  h2 { margin: 40px 0 10px; color: var(--strong); font-size: 13px; font-weight: 600; }
+  p { margin: 0 0 10px; }
+  .lead { margin-top: 20px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; color: var(--weak); }
+  .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+  ol { margin: 0; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  b { color: var(--strong); font-weight: 600; }
+  code {
+    padding: 1px 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--panel);
+    color: var(--strong);
+    word-break: break-all;
+    user-select: all;
+  }
+  a { color: var(--strong); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--weak);
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <svg viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="${CHICKEN}"/></svg>
+    <h1>bawksync</h1>
+  </header>
+  <p class="lead">The sync server for <a href="https://github.com/juddisjudd/bawkterm">bawkterm</a>. It stores end-to-end encrypted records and nothing else.</p>
+  <span class="status"><i></i>running · v${escape(version)}</span>
+
+  <h2>Connect bawkterm</h2>
+  <ol>
+    <li>In bawkterm, open <b>settings → sync → Set up new sync</b>.</li>
+    <li>Enter this server's address: <code>${escape(address)}</code></li>
+    <li>Enter a token from whoever runs this server.</li>
+    <li>On your other devices, choose <b>Join with sync link</b>.</li>
+  </ol>
+
+  <h2>What this server can see</h2>
+  <p>Record IDs, timestamps and sizes. Everything is encrypted on your device before it is sent, so the server never sees hostnames, usernames, passwords, keys or labels.</p>
+
+  <footer>
+    <a href="https://github.com/juddisjudd/bawksync/blob/main/docs/Home.md">run your own server</a>
+    <a href="https://github.com/juddisjudd/bawksync">source</a>
+    <a href="/v1/health">health</a>
+  </footer>
+</main>
+</body>
+</html>
+`
+}

@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { bodyLimit } from 'hono/body-limit'
 import type { IncomingRecord, Store } from './store.ts'
+import { FAVICON, PAGE_HEADERS, landingPage } from './page.ts'
 
 export const VERSION = '0.1.0'
 // pullPage keeps one response under ~25 MB even when every blob is at the size limit
@@ -57,7 +58,15 @@ export function createApp({ store, tokens }: AppOptions): Hono<Env> {
     return c.json({ error: 'internal error' }, 500)
   })
 
-  app.get('/', (c) => c.text('bawksync'))
+  app.get('/', (c) => {
+    const url = new URL(c.req.url)
+    const proto = c.req.header('x-forwarded-proto')?.split(',')[0].trim()
+    if (proto === 'http' || proto === 'https') url.protocol = `${proto}:`
+    return c.html(landingPage(url.origin, VERSION), 200, PAGE_HEADERS)
+  })
+  app.get('/favicon.svg', (c) =>
+    c.body(FAVICON, 200, { 'content-type': 'image/svg+xml', 'cache-control': 'public, max-age=86400', ...PAGE_HEADERS })
+  )
   app.get('/v1/health', (c) => c.json({ ok: true, name: 'bawksync', version: VERSION }))
 
   app.use('/v1/*', async (c, next) => {

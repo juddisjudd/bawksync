@@ -2,6 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { LIMITS, createApp, weakToken } from '../src/app.ts'
 import { SqliteStore } from '../src/store-sqlite.ts'
+import { landingPage } from '../src/page.ts'
 
 const TOKEN_A = 'a'.repeat(32)
 const TOKEN_B = 'b'.repeat(32)
@@ -35,6 +36,19 @@ test('health is public, records need a valid token', async () => {
   assert.equal((await call('GET', '/v1/records')).status, 401)
   assert.equal((await call('GET', '/v1/records', 'x'.repeat(32))).status, 401)
   assert.equal((await call('GET', '/v1/records', TOKEN_A)).status, 200)
+})
+
+test('the root page is static HTML and escapes the address', async () => {
+  const app = createApp({ store: new SqliteStore(':memory:'), tokens: [TOKEN_A] })
+  const res = await app.request('http://example.com/', { headers: { 'x-forwarded-proto': 'https' } })
+  assert.equal(res.status, 200)
+  assert.match(res.headers.get('content-type') ?? '', /text\/html/)
+  assert.match(res.headers.get('content-security-policy') ?? '', /default-src 'none'/)
+  const html = await res.text()
+  assert.match(html, /<code>https:\/\/example\.com<\/code>/)
+  assert.doesNotMatch(html, /<script/)
+  assert.doesNotMatch(landingPage('a"><script>x</script>', '1'), /<script>x/)
+  assert.equal((await app.request('/favicon.svg')).headers.get('content-type'), 'image/svg+xml')
 })
 
 test('push then pull returns records in seq order', async () => {
