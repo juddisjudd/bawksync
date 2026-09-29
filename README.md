@@ -23,7 +23,7 @@ It never sees hostnames, usernames, passwords, private keys, labels or the encry
 
 **It cannot** read items, forge them, delete them on your devices (deletions are decided inside the encrypted data), or bring back a deleted item by replaying an old copy (devices remember deletions).
 
-**It can** refuse service, lose data, or see how many records you have, how big they are and when they change. Each device keeps its own copy, so a lost server means setting sync up again, not losing your vault.
+**It can** refuse service, lose data, or see how many records you have, how big they are and when they change. Each device keeps its own copy of the vault. If the server is lost, set up sync again.
 
 ### Tokens
 
@@ -44,7 +44,7 @@ It never sees hostnames, usernames, passwords, private keys, labels or the encry
 
 ## Run it
 
-The image `ghcr.io/juddisjudd/bawksync` runs on `amd64` and `arm64`. Step-by-step guides live in [docs/](docs/Home.md), and are mirrored to the wiki:
+The image `ghcr.io/juddisjudd/bawksync` runs on `amd64` and `arm64`. Step-by-step guides are in [docs/](docs/Home.md) and on the wiki:
 
 - [Docker and Docker Compose](docs/Docker.md), including running without Docker
 - [Unraid](docs/Unraid.md), [TrueNAS](docs/TrueNAS.md) and [HexOS](docs/HexOS.md)
