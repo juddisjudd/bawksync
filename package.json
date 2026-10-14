@@ -19,13 +19,13 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@hono/node-server": "2.1.1",
-    "hono": "4.13.9"
+    "@hono/node-server": "2.1.4",
+    "hono": "4.13.13"
   },
   "devDependencies": {
     "@types/node": "24.19.0",
     "typescript": "6.0.3",
-    "wrangler": "4.138.0"
+    "wrangler": "4.149.0"
   },
   "overrides": {
     "undici": ">=7.29.1 <8"
